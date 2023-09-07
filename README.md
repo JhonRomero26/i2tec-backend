@@ -22,16 +22,10 @@ npm run start
 yarn start
 ```
 
-### `build`
+### `deploy`
 
-For build, you will need to build the project from a Docker image. To build the image, you can run:
-
-```
-docker build --build-arg NODE_ENV=production -f Dockerfile.prod -t JhonRomero26/i2tec-backend .
-```
-
-Once you finish building the image, push it to the repository located in the GitHub Container Registry with the URL `ghcr.io/JhonRomero26/i2tec-backend`. You can push the image using the following command:
+You will need to build the project from a Docker image. To build the image, however, Github actions make this job automated. If you need deploy this project, advice pull image with command:
 
 ```
-docker push ghcr.io/JhonRomero26/i2tec-backend:<VERSION>
+docker pull ghcr.io/jhonromero26/i2tec-backend
 ```
