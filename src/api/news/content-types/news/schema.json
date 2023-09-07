@@ -1,0 +1,40 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tidings",
+  "info": {
+    "singularName": "news",
+    "pluralName": "tidings",
+    "displayName": "News",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "description": {
+      "type": "text",
+      "required": true,
+      "minLength": 20
+    },
+    "facebook_url": {
+      "type": "string",
+      "required": true
+    },
+    "instagram_url": {
+      "type": "string"
+    }
+  }
+}
