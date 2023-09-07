@@ -9,11 +9,11 @@ on:
       - main
 
 jobs:
-  push-store-image:
+  push-docker-image:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: "."
+    permissions:
+      contents: read
+      packages: write
     steps:
       - name: "Checkout GitHub Action"
         uses: actions/checkout@main
