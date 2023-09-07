@@ -27,5 +27,5 @@ jobs:
 
       - name: "Build Inventory Image"
         run: |
-          docker build . --build-arg NODE_ENV=production --tag ghcr.io/JhonRomero26/i2tec-backend:latest -f Dockerfile.prod
-          docker push ghcr.io/JhonRomero26/i2tec-backend:latest
+          docker build . --build-arg NODE_ENV=production --tag ghcr.io/jhonromero26/i2tec-backend/backend:latest -f Dockerfile.prod
+          docker push ghcr.io/jhonromero26/i2tec-backend/backend:latest
