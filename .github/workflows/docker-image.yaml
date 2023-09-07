@@ -23,9 +23,9 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{github.actor}}
-          password: ${{secrets.CONTAINER_REGISTRY_TOKEN}}
+          password: ${{secrets.GITHUB_TOKEN}}
 
       - name: "Build Inventory Image"
         run: |
-          docker build . --build-arg NODE_ENV=production --tag ghcr.io/jhonromero26/i2tec-backend/backend:latest -f Dockerfile.prod
-          docker push ghcr.io/jhonromero26/i2tec-backend/backend:latest
+          docker build . --build-arg NODE_ENV=production --tag ghcr.io/i2tec-website/backend:latest -f Dockerfile.prod
+          docker push ghcr.io/i2tec-website/backend:latest
