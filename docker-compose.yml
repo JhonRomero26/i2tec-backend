@@ -1,0 +1,70 @@
+version: "3"
+
+services:
+  backend:
+    container_name: backend
+    working_dir: /opt/app
+    build: .
+    image: jhonromero26/i2tec-backend:latest
+    restart: unless-stopped
+    env_file: .env.backend
+    environment:
+      DATABASE_CLIENT: ${DATABASE_CLIENT}
+      DATABASE_HOST: db
+      DATABASE_NAME: ${DATABASE_NAME}
+      DATABASE_USERNAME: ${DATABASE_USERNAME}
+      DATABASE_PORT: ${DATABASE_PORT}
+      JWT_SECRET: ${JWT_SECRET}
+      ADMIN_JWT_SECRET: ${ADMIN_JWT_SECRET}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      NODE_ENV: ${NODE_ENV}
+    volumes:
+      - ./config:/opt/app/config
+      - ./src:/opt/app/src
+      - ./package.json:/opt/package.json
+      - ./package-lock.json:/opt/package-lock.json
+      - ./.env:/opt/app/.env
+      - ./public/uploads:/opt/app/public/uploads
+    ports:
+      - "1337:1337"
+    networks:
+      - i2tec
+    depends_on:
+      - db
+
+  db:
+    container_name: db
+    platform: linux/amd64 #for platform error on Apple M1 chips
+    restart: unless-stopped
+    env_file: .env.backend
+    image: postgres:15.4-alpine3.18
+    environment:
+      POSTGRES_USER: ${DATABASE_USERNAME}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
+    volumes:
+      - ./db/:/var/lib/postgresql/data/ #using a volume
+    ports:
+      - "5432:5432"
+    networks:
+      - i2tec
+
+  adminerDB:
+    container_name: adminerDB
+    image: adminer
+    restart: unless-stopped
+    ports:
+      - "9090:8080"
+    environment:
+      - ADMINER_DEFAULT_SERVER=db
+    networks:
+      - i2tec
+    depends_on:
+      - db
+
+networks:
+  i2tec:
+    name: i2tec
+    driver: bridge
+    driver_opts:
+      encrypted: 1
