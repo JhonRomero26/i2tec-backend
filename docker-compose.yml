@@ -29,6 +29,7 @@ services:
       - "1337:1337"
     networks:
       - i2tec
+      - nginx_default
     depends_on:
       - db
 
@@ -48,6 +49,7 @@ services:
       - "5432:5432"
     networks:
       - i2tec
+      - nginx_default
 
   adminerDB:
     container_name: adminerDB
@@ -59,12 +61,19 @@ services:
       - ADMINER_DEFAULT_SERVER=db
     networks:
       - i2tec
+      - nginx_default
     depends_on:
       - db
 
 networks:
   i2tec:
     name: i2tec
+    driver: bridge
+    driver_opts:
+      encrypted: 1
+
+  nginx_default:
+    name: nginx_default
     driver: bridge
     driver_opts:
       encrypted: 1
