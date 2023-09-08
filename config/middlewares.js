@@ -5,6 +5,7 @@ module.exports = [
   'strapi::poweredBy',
   'strapi::logger',
   'strapi::query',
+  { resolver: "./src/middlewares/admin-redirect" },
   {
     name: "strapi::body",
     config: {
