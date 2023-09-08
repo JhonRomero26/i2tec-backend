@@ -75,5 +75,3 @@ networks:
   nginx_default:
     name: nginx_default
     driver: bridge
-    driver_opts:
-      encrypted: 1
