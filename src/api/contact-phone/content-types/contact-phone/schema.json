@@ -1,0 +1,20 @@
+{
+  "kind": "singleType",
+  "collectionName": "contact_phones",
+  "info": {
+    "singularName": "contact-phone",
+    "pluralName": "contact-phones",
+    "displayName": "Contact Phone"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "phone": {
+      "type": "string",
+      "default": "+593",
+      "required": true
+    }
+  }
+}

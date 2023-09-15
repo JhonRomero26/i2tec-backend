@@ -46,9 +46,6 @@
       "target": "api::project.project",
       "mappedBy": "authors"
     },
-    "teacher": {
-      "type": "boolean"
-    },
     "prefix_titles": {
       "type": "relation",
       "relation": "oneToMany",

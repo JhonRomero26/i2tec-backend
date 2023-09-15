@@ -26,7 +26,8 @@
       ]
     },
     "slug": {
-      "type": "uid"
+      "type": "uid",
+      "targetField": "title"
     },
     "popular": {
       "type": "boolean"
@@ -35,15 +36,15 @@
       "type": "string",
       "unique": false
     },
-    "description": {
-      "type": "text",
-      "maxLength": 250
-    },
     "authors": {
       "type": "relation",
       "relation": "manyToMany",
       "target": "api::person.person",
       "inversedBy": "projects"
+    },
+    "description": {
+      "type": "richtext",
+      "minLength": 80
     }
   }
 }
