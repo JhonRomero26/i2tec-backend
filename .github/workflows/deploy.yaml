@@ -8,11 +8,10 @@ env:
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
 
 jobs:
-  push-docker-image:
+  docker-image:
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -38,6 +37,7 @@ jobs:
     steps:
       - name: "Checkout GitHub Action"
         uses: actions/checkout@main
+
       - name: Pull changes of the origin main
         uses: appleboy/ssh-action@v1.0.0
         with:
