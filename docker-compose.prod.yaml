@@ -53,20 +53,6 @@ services:
       - i2tec
       - nginx_default
 
-  adminerDB:
-    container_name: adminerDB
-    image: adminer
-    restart: unless-stopped
-    ports:
-      - "9090:8080"
-    environment:
-      - ADMINER_DEFAULT_SERVER=db
-    networks:
-      - i2tec
-      - nginx_default
-    depends_on:
-      - db
-
 volumes:
   db:
 
