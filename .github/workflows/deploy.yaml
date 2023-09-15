@@ -50,7 +50,7 @@ jobs:
             if cd backend; then git pull origin main; else git clone ${{ env.REPOSITORY_URL }} backend && cd backend; fi
 
   run-docker:
-    depend: build-image
+    needs: build-image
     runs-on: ubuntu-latest
     steps:
       - name: "Checkout GitHub Action"
