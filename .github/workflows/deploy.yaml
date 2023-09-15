@@ -3,7 +3,7 @@ name: Backend I2TEC deploy
 env:
   DOTNET_VERSION: "6.0.x"
   SERVER_DIRECTORY: ~/apps/i2tec.ec
-  REPOSITORY_URL: ${{ GITHUB_SERVER_URL }}/${{ GITHUB_REPOSITORY }}.git
+  REPOSITORY_URL: ${{ secrets.GITHUB_SERVER_URL }}/${{ secrets.GITHUB_REPOSITORY }}.git
   CONAINTER_REGISTRY: ghcr.io/jhonromero26/i2tec-backend
 
 on:
@@ -31,3 +31,36 @@ jobs:
         run: |
           docker build . --tag ${{ env.CONAINTER_REGISTRY }}:latest -f Dockerfile.prod
           docker push ${{ env.CONAINTER_REGISTRY }}:latest
+
+  pull-changes:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout GitHub Action"
+        uses: actions/checkout@main
+
+      - name: Pull changes of the origin main
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.HOST_DEPLOY }}
+          username: ${{ secrets.USER_DEPLOY }}
+          port: ${{ secrets.PORT_SERVER_DEPLOY }}
+          key: ${{ secrets.SSH_DEPLOY_KEY }}
+          script: |
+            cd ${{ env.SERVER_DIRECTORY }}
+            if cd backend; then git pull origin main; else git clone ${{ env.REPOSITORY_URL }} backend && cd backend; fi
+
+  run-docker:
+   runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout GitHub Action"
+        uses: actions/checkout@main
+      - name: Run Docker
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.HOST_DEPLOY }}
+          username: ${{ secrets.USER_DEPLOY }}
+          port: ${{ secrets.PORT_SERVER_DEPLOY }}
+          key: ${{ secrets.SSH_DEPLOY_KEY }}
+          script: |
+            cd ${{ env.SERVER_DIRECTORY }}/backend
+            make deploy
