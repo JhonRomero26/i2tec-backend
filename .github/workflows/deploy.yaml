@@ -50,7 +50,7 @@ jobs:
             if cd backend; then git pull origin main; else git clone ${{ env.REPOSITORY_URL }} backend && cd backend; fi
 
   run-docker:
-   runs-on: ubuntu-latest
+    runs-on: ubuntu-latest
     steps:
       - name: "Checkout GitHub Action"
         uses: actions/checkout@main
