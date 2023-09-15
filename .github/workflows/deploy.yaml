@@ -11,7 +11,7 @@ on:
     branches: [main]
 
 jobs:
-  docker-image:
+  build-image:
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -50,6 +50,7 @@ jobs:
             if cd backend; then git pull origin main; else git clone ${{ env.REPOSITORY_URL }} backend && cd backend; fi
 
   run-docker:
+    depends: build-image
     runs-on: ubuntu-latest
     steps:
       - name: "Checkout GitHub Action"
