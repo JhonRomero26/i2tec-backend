@@ -62,4 +62,5 @@ networks:
       encrypted: 1
 
   nginx_default:
+    name: nginx_default
     external: true
