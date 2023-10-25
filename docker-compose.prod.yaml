@@ -50,6 +50,7 @@ services:
       - "5432:5432"
     networks:
       - i2tec-backend
+      - nginx_default
 
 volumes:
   db:
