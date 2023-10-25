@@ -49,19 +49,14 @@ services:
     ports:
       - "5432:5432"
     networks:
-      - i2tec
-      - nginx_default
+      - i2tec-backend
 
 volumes:
   db:
 
 networks:
-  i2tec:
-    name: i2tec
+  i2tec-backend:
+    name: i2tec-backend
     driver: bridge
     driver_opts:
       encrypted: 1
-
-  nginx_default:
-    name: nginx_default
-    driver: bridge
