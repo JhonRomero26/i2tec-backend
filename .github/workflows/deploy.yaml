@@ -12,7 +12,7 @@ on:
       - main
 
 jobs:
-  build-image:
+  img-build-sha:
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -32,6 +32,26 @@ jobs:
         run: |
           docker build . --tag ${{ env.CONAINTER_REGISTRY }}:${{ github.sha }} -f Dockerfile.prod
           docker push ${{ env.CONAINTER_REGISTRY }}:${{ github.sha }}
+
+  img-build-latest:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: "Checkout GitHub Action"
+        uses: actions/checkout@main
+
+      - name: "Login to GitHub Container Registry"
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{github.actor}}
+          password: ${{secrets.GITHUB_TOKEN}}
+
+      - name: "Build Inventory Image"
+        run: |
+          docker build . --tag ${{ env.CONAINTER_REGISTRY }}:latest -f Dockerfile.prod
           docker push ${{ env.CONAINTER_REGISTRY }}:latest
 
   pull-changes:
@@ -52,7 +72,7 @@ jobs:
             if cd backend; then git pull origin main; else git clone ${{ env.REPOSITORY_URL }} backend && cd backend; fi
 
   run-docker:
-    needs: build-image
+    needs: img-build-latest
     runs-on: ubuntu-latest
     steps:
       - name: "Checkout GitHub Action"
