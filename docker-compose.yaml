@@ -28,9 +28,6 @@ services:
       - ./public/uploads:/opt/app/public/uploads
     ports:
       - "1337:1337"
-    networks:
-      - i2tec
-      - nginx_default
     depends_on:
       - db
 
@@ -48,15 +45,11 @@ services:
       - db:/var/lib/postgresql/data/ #using a volume
     ports:
       - "5432:5432"
-    networks:
-      - i2tec-backend
 
 volumes:
   db:
 
 networks:
-  i2tec-backend:
-    name: i2tec-backend
-    driver: bridge
-    driver_opts:
-      encrypted: 1
+  default:
+    name: nginx-proxy
+    external: true
