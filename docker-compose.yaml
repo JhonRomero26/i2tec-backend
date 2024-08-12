@@ -5,7 +5,7 @@ services:
     container_name: backend
     working_dir: /opt/app
     build: .
-    image: ghcr.io/jhonromero26/i2tec-backend:latest
+    # image: ghcr.io/jhonromero26/i2tec-backend:latest
     restart: unless-stopped
     command: npm run develop
     env_file: .env

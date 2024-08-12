@@ -42,9 +42,14 @@
       "target": "api::person.person",
       "inversedBy": "projects"
     },
-    "description": {
+    "content": {
       "type": "richtext",
-      "minLength": 80
+      "minLength": 100
+    },
+    "excerpt": {
+      "type": "text",
+      "minLength": 20,
+      "maxLength": 150
     }
   }
 }
